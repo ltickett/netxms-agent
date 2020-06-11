@@ -2,19 +2,18 @@
 
 # https://wiki.netxms.org/wiki/Agent_Configuration_File
 
-nxagent_conf=/data/nxagent.conf
-nxagent_log_file=/data/nxagent.log
-NXAGENT_MASTERSERVER=${NXAGENT_MASTERSERVER:-127.0.0.1}
+conf=/data/nxagent.conf
+log_file=/data/nxagent.log
+MASTERSERVER=${MASTERSERVER:-127.0.0.1}
 
-if [ ! -f "${nxagent_conf}" ];
+if [ ! -f "${conf}" ];
 then
-    echo "Generating NetXMS Agent config file ${nxagent_conf}"
-    cat > ${nxagent_conf} <<EOL
-# https://wiki.netxms.org/wiki/Agent_Configuration_File
+    echo "Generating NetXMS Agent config file ${conf}"
+    cat > ${conf} <<EOL
 [Core]
-LogFile = ${nxagent_log_file}
-MasterServers = ${NXAGENT_MASTERSERVER}
-${NXAGENT_CONFIG}
+LogFile = ${log_file}
+MasterServers = ${MASTERSERVER}
+${CONFIG}
 EOL
 fi
 
@@ -39,10 +38,10 @@ fi
 
 
 ARGS="-f"
-[ -n "$NXAGENT_REGISTERSERVER" ] && ARGS="$ARGS -r $NXAGENT_REGISTERSERVER"
-[ -n "$NXAGENT_CONFIGSERVER" ] && ARGS="$ARGS -M $NXAGENT_CONFIGSERVER"
-[ -n "$NXAGENT_LOGLEVEL" ] && ARGS="$ARGS -D $NXAGENT_LOGLEVEL"
-[ -n "$NXAGENT_PLATFORMSUFFIX" ] && ARGS="$ARGS -P $NXAGENT_PLATFORMSUFFIX"
+[ -n "$REGISTERSERVER" ] && ARGS="$ARGS -r $REGISTERSERVER"
+[ -n "$CONFIGSERVER" ] && ARGS="$ARGS -M $CONFIGSERVER"
+[ -n "$LOGLEVEL" ] && ARGS="$ARGS -D $LOGLEVEL"
+[ -n "$PLATFORMSUFFIX" ] && ARGS="$ARGS -P $PLATFORMSUFFIX"
 
 echo "Starting nxagentd"
-exec nxagentd $ARGS -c "${nxagent_conf}" 
+exec nxagentd $ARGS -c "${conf}" 
