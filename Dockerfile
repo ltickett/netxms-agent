@@ -1,7 +1,7 @@
 FROM debian:stretch
 MAINTAINER Ibere Luiz Di Tizio Jr <ibere.tizio@gmail.com>
 
-ARG NETXMS_VERSION_AGENT=3.3.350-1
+ARG NETXMS_VERSION_AGENT=3.4.313-1
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update && \
