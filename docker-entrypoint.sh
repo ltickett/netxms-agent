@@ -13,7 +13,7 @@ then
 [Core]
 LogFile = ${log_file}
 MasterServers = ${MASTERSERVER}
-${CONFIG}
+$NXCONFIG
 EOL
 fi
 
